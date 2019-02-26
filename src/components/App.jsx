@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import ChatHeader from './ChatHeader';
 import ChannelsList from './ChannelsList';
+import Messages from './Messages';
 import NewMessage from './NewMessage';
 
 // nav.navbar.navbar-expand-lg.navbar-light.bg-faded
@@ -23,7 +24,7 @@ const App = () => {
           <ChannelsList />
         </Col>
         <Col md={{ offset: 1 }} className="d-flex flex-column">
-          <div className="flex-grow-1 border">11</div>
+          <Messages />
           <NewMessage />
         </Col>
       </Row>
