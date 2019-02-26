@@ -1,13 +1,15 @@
-import { createStore } from 'redux';
-import gon from 'gon';
-import faker from 'faker';
-import cookies from 'js-cookie';
-import reducer from './reducer';
+import { createStore, combineReducers } from 'redux';
 
-export default () => {
-  const cookiesName = cookies.get('userName');
-  const userName = cookiesName || faker.name.findName();
+import reducers from './reducers';
+import { initChannels } from './actions';
 
-  const store = createStore(reducer);
+export default (channels = []) => {
+  const rootReducer = combineReducers(reducers);
+  const store = createStore(rootReducer);
+
+  if (channels.length) {
+    store.dispatch(initChannels(channels));
+  }
+
   return store;
 };
