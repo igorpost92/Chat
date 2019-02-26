@@ -10,6 +10,9 @@ build:
 	rm -rf dist
 	npm run build
 
+deploy:
+	heroku git:remote -a super-mega-chat
+
 test:
 	npm test
 
