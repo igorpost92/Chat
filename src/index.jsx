@@ -15,11 +15,11 @@ import UserNameContext from './contextes/UserNameContext';
 
 debug('gon', gon);
 
-let userName = cookies.get('userName');
-if (!userName) {
-  userName = faker.name.findName();
-  cookies.set('userName', userName);
-  debug('set userName', userName);
+let username = cookies.get('userName');
+if (!username) {
+  username = faker.name.findName();
+  cookies.set('userName', username);
+  debug('set userName', username);
 }
 
 const { channels, messages, currentChannelId } = gon;
@@ -30,7 +30,7 @@ connectSocket(cb);
 
 render(
   <Provider store={store}>
-    <UserNameContext.Provider value={userName}>
+    <UserNameContext.Provider value={username}>
       <App />
     </UserNameContext.Provider>
   </Provider>,

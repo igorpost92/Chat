@@ -1,13 +1,10 @@
 import React from 'react';
-import UserNameContext from '../contextes/UserNameContext';
+import useUsername from '../hooks/useUsername';
 
 const ChatHeader = () => {
+  const username = useUsername();
   return (
-    <UserNameContext.Consumer>
-      {(userName) => {
-        return <h2>Welcome back, {userName}</h2>;
-      }}
-    </UserNameContext.Consumer>
+    <h2>Welcome back, {username}</h2>
   );
 };
 

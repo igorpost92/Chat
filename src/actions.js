@@ -13,11 +13,11 @@ export const sendMessageSuccess = createAction('MESSAGE_SEND_SUCCESS');
 export const sendMessageFailure = createAction('MESSAGE_SEND_FAILURE');
 
 
-export const sendMessage = (channelId, text) => async (dispatch) => {
+export const sendMessage = (channelId, text, author) => async (dispatch) => {
   dispatch(sendMessageRequest());
 
   try {
-    await sendMessageApi(channelId, text);
+    await sendMessageApi(channelId, text, author);
     dispatch(sendMessageSuccess());
   } catch (error) {
     dispatch(sendMessageFailure());

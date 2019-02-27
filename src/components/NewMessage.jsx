@@ -1,6 +1,15 @@
 import React from 'react';
 import { InputGroup, FormControl, Button } from 'react-bootstrap';
+import connect from '../connect';
+import withUserName from '../hocs/withUserName';
 
+const mapStateToProps = (state) => {
+  const { textMessage } = state.chat;
+  return { textMessage };
+};
+
+@connect(mapStateToProps)
+@withUserName
 class NewMessage extends React.Component {
   handleInput = (e) => {
     const { inputMessage } = this.props;
@@ -9,8 +18,8 @@ class NewMessage extends React.Component {
   }
 
   onClick = () => {
-    const { textMessage, sendMessage } = this.props;
-    sendMessage(1, textMessage);
+    const { textMessage, sendMessage, username } = this.props;
+    sendMessage(1, textMessage, username);
   }
 
   render() {

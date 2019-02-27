@@ -1,5 +1,11 @@
 import React from 'react';
 import { ListGroup } from 'react-bootstrap';
+import connect from '../connect';
+
+const mapStateToProps = (state) => {
+  const { channels, currentChannelId } = state.channels;
+  return { channels, currentChannelId };
+};
 
 const ChannelsList = (props) => {
   const { channels, currentChannelId } = props;
@@ -24,4 +30,4 @@ ChannelsList.defaultProps = {
   channels: [],
 };
 
-export default ChannelsList;
+export default connect(mapStateToProps)(ChannelsList);

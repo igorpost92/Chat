@@ -19,11 +19,11 @@ export const getMessages = () => {
 
 };
 
-export const sendMessage = async (channelId, text) => {
+export const sendMessage = async (channelId, text, author) => {
   const resource = `/channels/${channelId}/messages`;
   const url = `${apiUrl}${resource}`;
 
-  const params = { data: { attributes: { text } } };
+  const params = { data: { attributes: { text, author } } };
 
   const response = await post(url, params);
   return response.data.data.attributes;

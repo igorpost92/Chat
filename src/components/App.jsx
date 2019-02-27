@@ -19,7 +19,7 @@ const App = () => {
   return (
     <Container className="h-100 d-flex flex-column py-4">
       <ChatHeader />
-      <Row className="h-75">
+      <Row className="h-75 mt-3">
         <Col md={4}>
           <ChannelsList />
         </Col>
