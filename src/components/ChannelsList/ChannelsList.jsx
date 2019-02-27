@@ -2,10 +2,20 @@ import React from 'react';
 import { ListGroup } from 'react-bootstrap';
 
 const ChannelsList = (props) => {
-  const { channels } = props;
+  const { channels, currentChannelId } = props;
   return (
     <ListGroup>
-      {channels.map(item => <ListGroup.Item key={item.id}>{item.name}</ListGroup.Item>)}
+      {channels.map((item) => {
+        const isActive = item.id === currentChannelId;
+        return (
+          <ListGroup.Item
+            key={item.id}
+            active={isActive}
+          >
+            {item.name}
+          </ListGroup.Item>
+        );
+      })}
     </ListGroup>
   );
 };

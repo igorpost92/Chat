@@ -1,15 +1,15 @@
 import { handleActions } from 'redux-actions';
 import * as actions from '../actions';
 
-const initialState = {
-  currentChannelId: null,
-  channels: [],
-};
+const initialState = [];
 
 export default handleActions({
   [actions.initApp](state, { payload }) {
-    const { channels, currentChannelId } = payload;
-    return { ...state, channels, currentChannelId };
+    return payload.messages;
+  },
+
+  [actions.addMessage](state, { payload }) {
+    return [...state, payload.message];
   },
 
 }, initialState);

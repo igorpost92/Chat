@@ -6,23 +6,27 @@ import cookies from 'js-cookie';
 import gon from 'gon';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../assets/application.css';
+import debug from './debug';
 
-// import io from 'socket.io-client';
-
-
-import createStore from './store';
+import createStore, { subscribeForNewMessages } from './store';
+import connectSocket from './socket';
 import App from './components/App';
 import UserNameContext from './contextes/UserNameContext';
 
-if (process.env.NODE_ENV !== 'production') {
-  localStorage.debug = 'chat:*';
+debug('gon', gon);
+
+let userName = cookies.get('userName');
+if (!userName) {
+  userName = faker.name.findName();
+  cookies.set('userName', userName);
+  debug('set userName', userName);
 }
 
-const cookiesName = cookies.get('userName');
-const userName = cookiesName || faker.name.findName();
+const { channels, messages, currentChannelId } = gon;
+const store = createStore(channels, messages, currentChannelId);
 
-const { channels } = gon;
-const store = createStore(channels);
+const cb = subscribeForNewMessages(store);
+connectSocket(cb);
 
 render(
   <Provider store={store}>

@@ -1,15 +1,18 @@
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 
 import reducers from './reducers';
-import { initChannels } from './actions';
+import { initApp, addMessage } from './actions';
 
-export default (channels = []) => {
+export const subscribeForNewMessages = store => (message) => {
+  store.dispatch(addMessage(message.attributes));
+};
+
+export default (channels = [], messages = [], currentChannelId) => {
   const rootReducer = combineReducers(reducers);
-  const store = createStore(rootReducer);
+  const store = createStore(rootReducer, applyMiddleware(thunk));
 
-  if (channels.length) {
-    store.dispatch(initChannels(channels));
-  }
+  store.dispatch(initApp(channels, messages, currentChannelId));
 
   return store;
 };

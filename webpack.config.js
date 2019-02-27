@@ -1,5 +1,6 @@
 module.exports = {
   mode: process.env.NODE_ENV || 'development',
+  devtool: process.env.NODE_ENV === 'production' ? '' : 'source-map',
   entry: [
     `${__dirname}/src/index.jsx`,
   ],
