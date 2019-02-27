@@ -11,7 +11,7 @@ build:
 	npm run build
 
 deploy:
-	heroku git:remote -a super-mega-chat
+	git push heroku master
 
 test:
 	npm test
