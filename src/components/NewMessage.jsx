@@ -1,36 +1,47 @@
 import React from 'react';
-import { InputGroup, FormControl, Button } from 'react-bootstrap';
+import { InputGroup, Button } from 'react-bootstrap';
+import { Field, reduxForm } from 'redux-form';
 import connect from '../connect';
 import withUserName from '../hocs/withUserName';
 
 const mapStateToProps = (state) => {
-  const { textMessage } = state.chat;
-  return { textMessage };
+  const { currentChannelId } = state.channels;
+  return { currentChannelId };
 };
 
+@reduxForm({ form: 'newMessage' })
 @connect(mapStateToProps)
 @withUserName
 class NewMessage extends React.Component {
-  handleInput = (e) => {
-    const { inputMessage } = this.props;
-    const text = e.target.value;
-    inputMessage(text);
-  }
+  onSubmit = async ({ message }) => {
+    const {
+      currentChannelId,
+      username,
+      sendMessage,
+      reset,
+    } = this.props;
 
-  onClick = () => {
-    const { textMessage, sendMessage, username } = this.props;
-    sendMessage(1, textMessage, username);
+    try {
+      await sendMessage(currentChannelId, message, username);
+      reset();
+    } catch (error) {
+      // TODO:
+      alert('There was an error while sending message'); // eslint-disable-line no-alert
+    }
   }
 
   render() {
-    const { textMessage } = this.props;
+    const { handleSubmit, submitting } = this.props;
+
     return (
-      <InputGroup className="my-3">
-        <FormControl value={textMessage} placeholder="Message..." onChange={this.handleInput} />
-        <InputGroup.Append>
-          <Button variant="outline-primary" onClick={this.onClick}>Send</Button>
-        </InputGroup.Append>
-      </InputGroup>
+      <form onSubmit={handleSubmit(this.onSubmit)}>
+        <InputGroup className="my-3">
+          <Field className="form-control" placeholder="Message..." name="message" component="input" type="text" autoComplete="off" disabled={submitting} />
+          <InputGroup.Append>
+            <Button variant="outline-primary" type="submit" disabled={submitting}>Send</Button>
+          </InputGroup.Append>
+        </InputGroup>
+      </form>
     );
   }
 }
