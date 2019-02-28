@@ -47,7 +47,9 @@ export default () => {
     debug: true,
     pretty: true,
     compileDebug: true,
-    locals: [],
+    locals: {
+      Title: 'Super mega chat 2019',
+    },
     noCache: process.env.NODE_ENV !== 'production',
     basedir: path.join(__dirname, 'views'),
     helperPath: [
