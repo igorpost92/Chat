@@ -13,6 +13,20 @@ const mapStateToProps = (state) => {
 @connect(mapStateToProps)
 @withUserName
 class NewMessage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.input = React.createRef();
+  }
+
+  componentDidMount() {
+    this.focusField();
+  }
+
+  focusField = () => {
+    const field = this.input.current.getRenderedComponent();
+    field.focus();
+  }
+
   onSubmit = async ({ message }) => {
     const {
       currentChannelId,
@@ -24,6 +38,7 @@ class NewMessage extends React.Component {
     try {
       await sendMessage(currentChannelId, message, username);
       reset();
+      this.focusField();
     } catch (error) {
       // TODO:
       alert('There was an error while sending message'); // eslint-disable-line no-alert
@@ -36,7 +51,17 @@ class NewMessage extends React.Component {
     return (
       <form onSubmit={handleSubmit(this.onSubmit)}>
         <InputGroup className="my-3">
-          <Field className="form-control" placeholder="Message..." name="message" component="input" type="text" autoComplete="off" disabled={submitting} />
+          <Field
+            ref={this.input}
+            forwardRef
+            className="form-control"
+            placeholder="Message..."
+            name="message"
+            component="input"
+            type="text"
+            autoComplete="off"
+            disabled={submitting}
+          />
           <InputGroup.Append>
             <Button variant="outline-primary" type="submit" disabled={submitting}>Send</Button>
           </InputGroup.Append>
