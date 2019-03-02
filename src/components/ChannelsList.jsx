@@ -7,27 +7,38 @@ const mapStateToProps = (state) => {
   return { channels, currentChannelId };
 };
 
-const ChannelsList = (props) => {
-  const { channels, currentChannelId } = props;
-  return (
-    <ListGroup>
-      {channels.map((item) => {
-        const isActive = item.id === currentChannelId;
-        return (
-          <ListGroup.Item
-            key={item.id}
-            active={isActive}
-          >
-            {item.name}
-          </ListGroup.Item>
-        );
-      })}
-    </ListGroup>
-  );
-};
+@connect(mapStateToProps)
+class ChannelsList extends React.Component {
+  handleClick = (channelId) => {
+    const id = parseInt(channelId, 10);
+    this.props.selectChannel(id);
+  };
+
+  render() {
+    const { channels, currentChannelId } = this.props;
+    return (
+      <ListGroup>
+        {channels.map((item) => {
+          const isActive = item.id === currentChannelId;
+          return (
+            <ListGroup.Item
+              eventKey={item.id}
+              onSelect={this.handleClick}
+              action
+              key={item.id}
+              active={isActive}
+            >
+              {item.name}
+            </ListGroup.Item>
+          );
+        })}
+      </ListGroup>
+    );
+  }
+}
 
 ChannelsList.defaultProps = {
   channels: [],
 };
 
-export default connect(mapStateToProps)(ChannelsList);
+export default ChannelsList;

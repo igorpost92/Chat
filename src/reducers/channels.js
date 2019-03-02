@@ -12,4 +12,9 @@ export default handleActions({
     return { ...state, channels, currentChannelId };
   },
 
+  [actions.selectChannel](state, { payload }) {
+    const { channelId } = payload;
+    return { ...state, currentChannelId: channelId };
+  },
+
 }, initialState);

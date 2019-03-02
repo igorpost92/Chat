@@ -3,7 +3,8 @@ import Message from './Message';
 import connect from '../hocs/connect';
 
 const mapStateToProps = (state) => {
-  const { messages } = state;
+  const channelId = state.channels.currentChannelId;
+  const messages = state.messages.filter(message => message.channelId === channelId);
   return { messages };
 };
 

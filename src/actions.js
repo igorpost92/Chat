@@ -5,6 +5,8 @@ import { sendMessage as sendMessageApi } from './api';
 export const initApp = createAction('CHANNELS_INIT',
   (channels, messages, currentChannelId) => ({ channels, messages, currentChannelId }));
 
+export const selectChannel = createAction('CHANNELS_SELECT', channelId => ({ channelId }));
+
 export const addMessage = createAction('MESSAGE_ADD', message => ({ message }));
 
 export const sendMessageRequest = createAction('MESSAGE_SEND_REQUEST');
