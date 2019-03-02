@@ -1,6 +1,6 @@
 import React from 'react';
 import Message from './Message';
-import connect from '../connect';
+import connect from '../hocs/connect';
 
 const mapStateToProps = (state) => {
   const { messages } = state;

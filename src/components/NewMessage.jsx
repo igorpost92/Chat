@@ -1,7 +1,7 @@
 import React from 'react';
 import { InputGroup, Button } from 'react-bootstrap';
 import { Field, reduxForm } from 'redux-form';
-import connect from '../connect';
+import connect from '../hocs/connect';
 import withUserName from '../hocs/withUserName';
 
 const mapStateToProps = (state) => {

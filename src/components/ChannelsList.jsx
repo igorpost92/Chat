@@ -1,6 +1,6 @@
 import React from 'react';
 import { ListGroup } from 'react-bootstrap';
-import connect from '../connect';
+import connect from '../hocs/connect';
 
 const mapStateToProps = (state) => {
   const { channels, currentChannelId } = state.channels;
