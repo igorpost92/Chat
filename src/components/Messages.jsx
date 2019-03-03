@@ -1,16 +1,19 @@
 import React from 'react';
 import Message from './Message';
+import MessagesHeaderPanel from './MessagesHeaderPanel';
 import connect from '../hocs/connect';
 
 const mapStateToProps = (state) => {
-  const channelId = state.channels.currentChannelId;
+  const { channels } = state;
+  const channelId = channels.currentChannelId;
+
   const messages = state.messages.filter(message => message.channelId === channelId);
   return { messages };
 };
 
 @connect(mapStateToProps)
 class Messages extends React.Component {
-  state = { scrolled: false }
+  state = { scrolled: false };
 
   constructor(props) {
     super(props);
@@ -39,18 +42,21 @@ class Messages extends React.Component {
 
       return { scrolled };
     });
-  }
+  };
 
   render() {
     const { messages } = this.props;
     return (
-      <div onScroll={this.handleScroll} ref={this.container} className="d-flex p-2 flex-column align-items-start h-100 mh-100 overflow-auto border">
-        {messages.map((message) => {
-          return (
-            <Message key={message.id} author={message.author} text={message.text} />
-          );
-        })}
-      </div>
+      <>
+        <MessagesHeaderPanel />
+        <div onScroll={this.handleScroll} ref={this.container} className="d-flex p-2 flex-column align-items-start h-100 mh-100 overflow-auto border">
+          {messages.map((message) => {
+            return (
+              <Message key={message.id} author={message.author} text={message.text} />
+            );
+          })}
+        </div>
+      </>
     );
   }
 }

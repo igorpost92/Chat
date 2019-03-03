@@ -40,7 +40,6 @@ class NewMessage extends React.Component {
       reset();
       this.focusField();
     } catch (error) {
-      // TODO:
       alert('There was an error while sending message'); // eslint-disable-line no-alert
     }
   }

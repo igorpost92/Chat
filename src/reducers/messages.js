@@ -12,4 +12,8 @@ export default handleActions({
     return [...state, payload.message];
   },
 
+  [actions.handleChannelDelete](state, { payload }) {
+    return state.filter(message => message.channelId !== payload.id);
+  },
+
 }, initialState);

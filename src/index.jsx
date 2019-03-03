@@ -8,7 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../assets/application.css';
 import debug from './debug';
 
-import createStore, { subscribeForNewMessages } from './store';
+import createStore, { subscribeForUpdates } from './store';
 import connectSocket from './socket';
 import App from './components/App';
 import UserNameContext from './contextes/UserNameContext';
@@ -25,7 +25,7 @@ if (!username) {
 const { channels, messages, currentChannelId } = gon;
 const store = createStore(channels, messages, currentChannelId);
 
-const cb = subscribeForNewMessages(store);
+const cb = subscribeForUpdates(store);
 connectSocket(cb);
 
 render(
