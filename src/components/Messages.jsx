@@ -12,7 +12,7 @@ const mapStateToProps = (state) => {
 };
 
 @connect(mapStateToProps)
-class Messages extends React.Component {
+class Messages extends React.PureComponent {
   state = { scrolled: false };
 
   constructor(props) {
@@ -21,8 +21,11 @@ class Messages extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
+    const { messages } = this.props;
+    const { scrolled } = this.state;
+
     const container = this.container.current;
-    if (prevProps.messages !== this.props.messages && !this.state.scrolled) {
+    if (prevProps.messages !== messages && !scrolled) {
       container.scrollTo({
         top: container.scrollHeight,
         behavior: 'smooth',
@@ -50,11 +53,9 @@ class Messages extends React.Component {
       <>
         <MessagesHeaderPanel />
         <div onScroll={this.handleScroll} ref={this.container} className="d-flex p-2 flex-column align-items-start h-100 mh-100 overflow-auto border">
-          {messages.map((message) => {
-            return (
-              <Message key={message.id} author={message.author} text={message.text} />
-            );
-          })}
+          {messages.map(message => (
+            <Message key={message.id} author={message.author} text={message.text} />
+          ))}
         </div>
       </>
     );

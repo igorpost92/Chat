@@ -9,7 +9,10 @@ const Message = (props) => {
 
   return (
     <div className={cn('d-inline border border-primary rounded mx-2 my-1 px-3 py-2', { 'align-self-end': isOwn })}>
-      <p className="font-weight-bold">{author}:</p>
+      <p className="font-weight-bold">
+        {author}
+        :
+      </p>
       <p className="mb-0">{text}</p>
     </div>
   );

@@ -7,22 +7,25 @@ import withModal from '../hocs/withModal';
 @withModal('removeChannel')
 class ChannelDeleteModal extends React.PureComponent {
   delete = async () => {
-    const { deleteChannel, close } = this.props;
-    const { currentChannelId } = this.props.options;
+    const { deleteChannel, close, options: { currentChannelId } } = this.props;
 
     deleteChannel(currentChannelId);
     close();
   };
 
   render() {
-    const { close } = this.props;
-    const { channelName } = this.props.options || {};
+    const { close, options } = this.props;
+    const { channelName } = options || {};
 
     // TODO: submitting
     return (
       <>
         <Modal.Header closeButton>
-          <Modal.Title>Are you sure that you want to delete channel {channelName}?</Modal.Title>
+          <Modal.Title>
+            Are you sure that you want to delete channel
+            {channelName}
+            ?
+          </Modal.Title>
         </Modal.Header>
 
         <Modal.Footer>

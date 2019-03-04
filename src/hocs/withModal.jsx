@@ -12,7 +12,8 @@ const withModal = (...types) => (WrappedComponent) => {
   @connect(mapStateToProps)
   class ModalDialog extends React.Component {
     close = () => {
-      this.props.closeModal();
+      const { closeModal } = this.props;
+      closeModal();
     };
 
     render() {

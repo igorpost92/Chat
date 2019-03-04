@@ -10,12 +10,15 @@ const mapStateToProps = (state) => {
 @connect(mapStateToProps)
 class ChannelsList extends React.Component {
   handleSelect = (channelId) => {
+    const { selectChannel } = this.props;
+
     const id = parseInt(channelId, 10);
-    this.props.selectChannel(id);
+    selectChannel(id);
   };
 
   handleAdd = () => {
-    this.props.showModal('addChannel');
+    const { showModal } = this.props;
+    showModal('addChannel');
   };
 
   render() {

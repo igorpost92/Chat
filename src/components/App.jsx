@@ -17,25 +17,23 @@ import ChannelDeleteModal from './ChannelDeleteModal';
 //             a.nav-link(href="/") Home
 //     .container
 
-const App = () => {
-  return (
-    <>
-      <ChannelNameModal />
-      <ChannelDeleteModal />
-      <Container className="h-100 d-flex flex-column py-4">
-        <ChatHeader />
-        <Row className="h-75 mt-3">
-          <Col md={4}>
-            <ChannelsList />
-          </Col>
-          <Col md={{ offset: 1 }} className="d-flex flex-column h-100">
-            <Messages />
-            <NewMessage />
-          </Col>
-        </Row>
-      </Container>
-    </>
-  );
-};
+const App = () => (
+  <>
+    <ChannelNameModal />
+    <ChannelDeleteModal />
+    <Container className="h-100 d-flex flex-column py-4">
+      <ChatHeader />
+      <Row className="h-75 mt-3">
+        <Col md={4}>
+          <ChannelsList />
+        </Col>
+        <Col md={{ offset: 1 }} className="d-flex flex-column h-100">
+          <Messages />
+          <NewMessage />
+        </Col>
+      </Row>
+    </Container>
+  </>
+);
 
 export default App;

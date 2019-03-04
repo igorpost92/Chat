@@ -24,8 +24,7 @@ class ChannelNameModal extends React.PureComponent {
         const { createNewChannel } = this.props;
         await createNewChannel(channelName);
       } else {
-        const { renameChannel } = this.props;
-        const { currentChannelId } = this.props.options;
+        const { renameChannel, options: { currentChannelId } } = this.props;
         await renameChannel(currentChannelId, channelName);
       }
       close();
