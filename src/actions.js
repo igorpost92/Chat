@@ -15,7 +15,8 @@ export const closeModal = createAction('MODAL_CLOSE');
 
 export const createNewChannel = name => async (dispatch) => {
   const response = await api.addChannel(name);
-  dispatch(selectChannel(response.id));
+  const channelId = response.id;
+  dispatch(selectChannel({ channelId }));
 };
 
 export const renameChannel = (id, newName) => async () => {

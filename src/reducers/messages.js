@@ -13,7 +13,7 @@ export default handleActions({
   },
 
   [actions.handleChannelDelete](state, { payload }) {
-    return state.filter(message => message.channelId !== payload.id);
+    return state.filter(message => message.channelId !== payload.channelId);
   },
 
 }, initialState);
