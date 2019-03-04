@@ -1,23 +1,30 @@
 import React from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, Alert } from 'react-bootstrap';
+import { reduxForm, SubmissionError } from 'redux-form';
 import connect from '../hocs/connect';
 import withModal from '../hocs/withModal';
 
 @connect(null)
 @withModal('removeChannel')
+@reduxForm({ form: 'removeChannel' })
 class ChannelDeleteModal extends React.PureComponent {
   delete = async () => {
     const { deleteChannel, close, options: { currentChannelId } } = this.props;
 
-    deleteChannel(currentChannelId);
-    close();
+    try {
+      await deleteChannel(currentChannelId);
+      close();
+    } catch (error) {
+      throw new SubmissionError({ _error: 'Something went wrong =(' });
+    }
   };
 
   render() {
-    const { close, options } = this.props;
+    const {
+      handleSubmit, close, options, error, submitting,
+    } = this.props;
     const { channelName } = options || {};
 
-    // TODO: submitting
     return (
       <>
         <Modal.Header closeButton>
@@ -28,9 +35,17 @@ class ChannelDeleteModal extends React.PureComponent {
           </Modal.Title>
         </Modal.Header>
 
+        {error && (
+          <Alert variant="danger" className="mt-1">
+            {error}
+          </Alert>
+        )}
+
         <Modal.Footer>
-          <Button variant="secondary" onClick={close}>Close</Button>
-          <Button variant="danger" onClick={this.delete}>Delete</Button>
+          <form onSubmit={handleSubmit(this.delete)}>
+            <Button variant="secondary" onClick={close}>Close</Button>
+            <Button type="input" variant="danger" disabled={submitting}>Delete</Button>
+          </form>
         </Modal.Footer>
       </>
     );
