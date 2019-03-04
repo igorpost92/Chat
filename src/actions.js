@@ -1,20 +1,14 @@
 import { createAction } from 'redux-actions';
 import * as api from './api';
 
-export const initApp = createAction('CHANNELS_INIT',
-  (channels, messages, currentChannelId) => ({ channels, messages, currentChannelId }));
+export const initApp = createAction('APP_INIT');
 
-export const selectChannel = createAction('CHANNELS_SELECT', channelId => ({ channelId }));
+export const selectChannel = createAction('CHANNELS_SELECT');
+export const handleChannelAdd = createAction('CHANNELS_ADD');
+export const handleChannelRename = createAction('CHANNELS_RENAME');
+export const handleChannelDelete = createAction('CHANNELS_DELETE');
 
-export const addChannel = createAction('CHANNELS_ADD',
-  ({ attributes: channel }) => ({ channel }));
-
-export const handleChannelRename = createAction('CHANNELS_RENAME',
-  ({ attributes: newChannel }) => ({ newChannel }));
-
-export const handleChannelDelete = createAction('CHANNELS_DELETE', ({ id }) => ({ id }));
-
-export const addMessage = createAction('MESSAGE_ADD', ({ attributes: message }) => ({ message }));
+export const handleMessageAdd = createAction('MESSAGE_ADD');
 
 export const showModal = createAction('MODAL_SHOW', (type, options) => ({ type, options }));
 export const closeModal = createAction('MODAL_CLOSE');

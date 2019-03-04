@@ -3,17 +3,18 @@ import { ListGroup, Button } from 'react-bootstrap';
 import connect from '../hocs/connect';
 
 const mapStateToProps = (state) => {
-  const { channels, currentChannelId } = state.channels;
+  const { byId, allIds, currentChannelId } = state.channels;
+  const channels = allIds.map(id => byId[id]);
   return { channels, currentChannelId };
 };
 
 @connect(mapStateToProps)
 class ChannelsList extends React.Component {
-  handleSelect = (channelId) => {
+  handleSelect = (id) => {
     const { selectChannel } = this.props;
 
-    const id = parseInt(channelId, 10);
-    selectChannel(id);
+    const channelId = parseInt(id, 10);
+    selectChannel({ channelId });
   };
 
   handleAdd = () => {

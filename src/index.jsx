@@ -25,8 +25,8 @@ if (!username) {
 const { channels, messages, currentChannelId } = gon;
 const store = createStore(channels, messages, currentChannelId);
 
-const cb = subscribeForUpdates(store);
-connectSocket(cb);
+const socket = connectSocket();
+subscribeForUpdates(store, socket);
 
 render(
   <Provider store={store}>

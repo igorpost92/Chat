@@ -4,10 +4,8 @@ import { Button, ButtonGroup } from 'react-bootstrap';
 import connect from '../hocs/connect';
 
 const mapStateToProps = (state) => {
-  const { channels } = state;
-  const { currentChannelId } = channels;
-  const channel = channels.channels.find(({ id }) => id === currentChannelId);
-  const { name: channelName, removable: canRemoveChannel } = channel || {};
+  const { byId, currentChannelId } = state.channels;
+  const { name: channelName, removable: canRemoveChannel } = byId[currentChannelId];
 
   return { channelName, currentChannelId, canRemoveChannel };
 };

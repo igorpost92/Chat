@@ -8,7 +8,7 @@ export default handleActions({
     return payload.messages;
   },
 
-  [actions.addMessage](state, { payload }) {
+  [actions.handleMessageAdd](state, { payload }) {
     return [...state, payload.message];
   },
 

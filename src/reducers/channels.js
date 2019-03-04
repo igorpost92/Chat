@@ -1,15 +1,25 @@
 import { handleActions } from 'redux-actions';
+import { omit } from 'lodash';
 import * as actions from '../actions';
 
 const initialState = {
   currentChannelId: null,
-  channels: [],
+  byId: {},
+  allIds: [],
 };
+
+const addChannel = (list, channel) => ({ ...list, [channel.id]: channel });
 
 export default handleActions({
   [actions.initApp](state, { payload }) {
     const { channels, currentChannelId } = payload;
-    return { ...state, channels, currentChannelId };
+
+    const byId = channels.reduce(addChannel, {});
+    const allIds = channels.map(({ id }) => id);
+
+    return {
+      ...state, byId, allIds, currentChannelId,
+    };
   },
 
   [actions.selectChannel](state, { payload }) {
@@ -17,37 +27,29 @@ export default handleActions({
     return { ...state, currentChannelId: channelId };
   },
 
-  [actions.addChannel](state, { payload }) {
-    const { channels } = state;
-    return {
-      ...state,
-      channels: [...channels, payload.channel],
-    };
+  [actions.handleChannelAdd](state, { payload }) {
+    const { channel } = payload;
+    const byId = addChannel(state.byId, channel);
+    const allIds = [...state.allIds, channel.id];
+    return { ...state, byId, allIds };
   },
 
   [actions.handleChannelDelete](state, { payload }) {
-    const { channels } = state;
+    const { channelId } = payload;
 
-    const restChannels = channels.filter(channel => channel.id !== payload.id);
-    const currentChannelId = restChannels.length ? restChannels[0].id : null;
+    const byId = omit(state.byId, channelId);
+    const allIds = state.allIds.filter(id => id !== channelId);
+    const currentChannelId = allIds[0];
 
     return {
-      ...state,
-      currentChannelId,
-      channels: restChannels,
+      ...state, byId, allIds, currentChannelId,
     };
   },
 
   [actions.handleChannelRename](state, { payload }) {
-    const { channels } = state;
-    const { newChannel } = payload;
-
-    return {
-      ...state,
-      channels: channels.map(channel => (channel.id === newChannel.id
-        ? newChannel
-        : channel)),
-    };
+    const { channel } = payload;
+    const byId = addChannel(state.byId, channel);
+    return { ...state, byId };
   },
 
 }, initialState);
