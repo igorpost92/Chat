@@ -1,6 +1,6 @@
 import React from 'react';
-import { InputGroup, Button } from 'react-bootstrap';
-import { Field, reduxForm } from 'redux-form';
+import { InputGroup, Button, Alert } from 'react-bootstrap';
+import { Field, reduxForm, SubmissionError } from 'redux-form';
 import connect from '../hocs/connect';
 import withUserName from '../hocs/withUserName';
 
@@ -40,15 +40,22 @@ class NewMessage extends React.Component {
       reset();
       this.focusField();
     } catch (error) {
-      alert('There was an error while sending message'); // eslint-disable-line no-alert
+      throw new SubmissionError({ _error: 'Something went wrong =(' });
     }
   }
 
   render() {
-    const { handleSubmit, submitting } = this.props;
+    const { handleSubmit, submitting, error } = this.props;
 
     return (
       <form onSubmit={handleSubmit(this.onSubmit)}>
+
+        {error && (
+          <Alert variant="danger" className="mt-2">
+            {error}
+          </Alert>
+        )}
+
         <InputGroup className="my-3">
           <Field
             ref={this.input}
