@@ -1,6 +1,6 @@
 import React from 'react';
-import { Modal, Button } from 'react-bootstrap';
-import { Field, reduxForm } from 'redux-form';
+import { Modal, Button, Alert } from 'react-bootstrap';
+import { Field, reduxForm, SubmissionError } from 'redux-form';
 import connect from '../hocs/connect';
 import withModal from '../hocs/withModal';
 
@@ -29,14 +29,15 @@ class ChannelNameModal extends React.PureComponent {
       }
       close();
     } catch (e) {
-      alert('Something went wrong =('); // eslint-disable-line no-alert
+      throw new SubmissionError({ _error: 'Something went wrong =(' });
     }
   };
 
   render() {
-    const { handleSubmit, close } = this.props;
+    const {
+      handleSubmit, close, submitting, error,
+    } = this.props;
 
-    // TODO: submitting
     return (
       <>
         <Modal.Header closeButton>
@@ -52,13 +53,19 @@ class ChannelNameModal extends React.PureComponent {
               component="input"
               type="text"
               autoComplete="off"
-              // disabled={submitting}
+              disabled={submitting}
             />
+
+            {error && (
+              <Alert variant="danger" className="mt-1">
+                {error}
+              </Alert>
+            )}
           </Modal.Body>
 
           <Modal.Footer>
             <Button variant="secondary" onClick={close}>Close</Button>
-            <Button type="submit" variant="primary">Save</Button>
+            <Button type="submit" variant="primary" disabled={submitting}>Save</Button>
           </Modal.Footer>
         </form>
       </>
