@@ -22,18 +22,22 @@ class ChannelsList extends React.Component {
     showModal('addChannel');
   };
 
+  renderHeader = () => (
+    <ListGroup.Item className="border-0">
+      <div className="d-flex w-100 justify-content-between align-items-center">
+        <h5 className="m-0">Channels</h5>
+        <div className="d-flex">
+          <Button variant="outline-primary" size="sm" onClick={this.handleAdd}>New</Button>
+        </div>
+      </div>
+    </ListGroup.Item>
+  );
+
   render() {
     const { channels, currentChannelId } = this.props;
     return (
       <ListGroup>
-        <ListGroup.Item className="border-0">
-          <div className="d-flex w-100 justify-content-between align-items-center">
-            <h5 className="m-0">Channels</h5>
-            <div className="d-flex">
-              <Button variant="outline-primary" size="sm" onClick={this.handleAdd}>New</Button>
-            </div>
-          </div>
-        </ListGroup.Item>
+        {this.renderHeader()}
 
         {channels.map((item) => {
           const isActive = item.id === currentChannelId;
