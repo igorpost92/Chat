@@ -10,7 +10,7 @@ export const handleChannelDelete = createAction('CHANNELS_DELETE');
 
 export const handleMessageAdd = createAction('MESSAGE_ADD');
 
-export const showModal = createAction('MODAL_SHOW', (type, options) => ({ type, options }));
+export const showModal = createAction('MODAL_SHOW');
 export const closeModal = createAction('MODAL_CLOSE');
 
 export const createNewChannel = name => async (dispatch) => {

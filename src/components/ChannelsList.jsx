@@ -19,7 +19,7 @@ class ChannelsList extends React.Component {
 
   handleAdd = () => {
     const { showModal } = this.props;
-    showModal('addChannel');
+    showModal({ type: 'addChannel' });
   };
 
   renderHeader = () => (

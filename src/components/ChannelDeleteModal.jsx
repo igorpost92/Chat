@@ -26,7 +26,7 @@ class ChannelDeleteModal extends React.PureComponent {
     const { channelName } = options || {};
 
     return (
-      <>
+      <form onSubmit={handleSubmit(this.delete)}>
         <Modal.Header closeButton>
           <Modal.Title>
             Are you sure that you want to delete channel
@@ -42,12 +42,10 @@ class ChannelDeleteModal extends React.PureComponent {
         )}
 
         <Modal.Footer>
-          <form onSubmit={handleSubmit(this.delete)}>
-            <Button variant="secondary" onClick={close}>Close</Button>
-            <Button type="input" variant="danger" disabled={submitting}>Delete</Button>
-          </form>
+          <Button variant="secondary" onClick={close}>Close</Button>
+          <Button type="input" variant="danger" disabled={submitting}>Delete</Button>
         </Modal.Footer>
-      </>
+      </form>
     );
   }
 }

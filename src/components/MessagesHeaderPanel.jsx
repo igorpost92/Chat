@@ -14,12 +14,12 @@ const mapStateToProps = (state) => {
 class MessagesHeaderPanel extends React.Component {
   handleRename = () => {
     const { currentChannelId, channelName, showModal } = this.props;
-    showModal('renameChannel', { currentChannelId, channelName });
+    showModal({ type: 'renameChannel', options: { currentChannelId, channelName } });
   };
 
   handleDelete = () => {
     const { currentChannelId, channelName, showModal } = this.props;
-    showModal('removeChannel', { currentChannelId, channelName });
+    showModal({ type: 'removeChannel', options: { currentChannelId, channelName } });
   };
 
   render() {
